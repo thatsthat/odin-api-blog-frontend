@@ -41,14 +41,27 @@ export default function SignUp() {
   const [isName2Invalid, setIsName2Invalid] = React.useState(false);
   const [isPwInvalid, setIsPwInvalid] = React.useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     if (event.currentTarget.checkValidity()) {
-      console.log({
+      const formData = {
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
         email: data.get("email"),
         password: data.get("password"),
+      };
+      console.log(formData);
+      const url = "http://localhost:3000/users/signup";
+      const resp = await fetch(url, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
+      const response = await resp.json();
+      console.log(response);
     } else {
       event.currentTarget.reportValidity();
       return false;

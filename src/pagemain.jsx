@@ -16,6 +16,5 @@ root.render(
       <CssBaseline />
       <SignUp />
     </ThemeProvider>
-    ,
   </React.StrictMode>
 );
