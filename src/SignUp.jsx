@@ -51,7 +51,6 @@ export default function SignUp() {
         email: data.get("email"),
         password: data.get("password"),
       };
-      console.log(formData);
       const url = "http://localhost:3000/users/signup";
       const resp = await fetch(url, {
         method: "post",
