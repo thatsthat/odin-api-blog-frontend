@@ -1,4 +1,5 @@
 import * as React from "react";
+import { jwtDecode } from "jwt-decode";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -53,7 +54,7 @@ export default function SignIn() {
         body: JSON.stringify(formData),
       });
       const response = await resp.json();
-      console.log(response);
+      console.log(jwtDecode(JSON.stringify(response)).user);
     } else {
       event.currentTarget.reportValidity();
       return false;
