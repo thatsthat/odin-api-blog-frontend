@@ -53,8 +53,13 @@ export default function SignIn() {
         },
         body: JSON.stringify(formData),
       });
-      const response = await resp.json();
-      console.log(jwtDecode(JSON.stringify(response)).user);
+      const token = await resp.json();
+      localStorage.setItem("currentToken", token.token);
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify(jwtDecode(JSON.stringify(token)).user)
+      );
+      console.log(jwtDecode(JSON.stringify(token)).user);
     } else {
       event.currentTarget.reportValidity();
       return false;
