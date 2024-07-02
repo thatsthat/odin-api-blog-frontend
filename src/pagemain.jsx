@@ -6,6 +6,7 @@ import Blog from "./Blog";
 import theme from "./theme";
 import SignIn from "./SignIn";
 import Compose from "./Compose";
+import ArticleList from "./ArticleList";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -15,7 +16,7 @@ root.render(
     <ThemeProvider theme={theme}>
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
-      <Compose />
+      <ArticleList />
     </ThemeProvider>
   </React.StrictMode>
 );
