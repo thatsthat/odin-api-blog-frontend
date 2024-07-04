@@ -92,16 +92,25 @@ export default function CheckboxList() {
             return (
               <>
                 <Grid item xs={3}>
-                  <Item>Post Title</Item>
+                  <Item>{article.title}</Item>
                 </Grid>
                 <Grid item xs={3}>
-                  <Item>Post Date</Item>
+                  <Item>{niceDate}</Item>
                 </Grid>
                 <Grid item xs={3}>
-                  <Item>Published</Item>
+                  <Switch
+                    edge="end"
+                    onChange={handleToggle(article)}
+                    checked={checked.indexOf(article) !== -1}
+                    inputProps={{
+                      "aria-labelledby": "switch-list-label-bluetooth",
+                    }}
+                  />
                 </Grid>
                 <Grid item xs={3}>
-                  <Item>Delete</Item>
+                  <IconButton edge="end" aria-label="delete-article">
+                    <DeleteIcon />
+                  </IconButton>
                 </Grid>
               </>
             );
@@ -134,19 +143,10 @@ export default function CheckboxList() {
         <ListItemText primary={niceDate} />
 
         <ListItemIcon>
-          <Switch
-            edge="end"
-            onChange={handleToggle(article)}
-            checked={checked.indexOf(article) !== -1}
-            inputProps={{
-              "aria-labelledby": "switch-list-label-bluetooth",
-            }}
-          />
+         
         </ListItemIcon>
 
-        <IconButton edge="end" aria-label="delete-article">
-          <DeleteIcon />
-        </IconButton>
+
       </ListItem>
     );
   })}
