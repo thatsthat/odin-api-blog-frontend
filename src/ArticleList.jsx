@@ -65,18 +65,18 @@ export default function CheckboxList() {
   if (!(typeof articles === "undefined")) {
     return (
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ alignItems: "center" }}>
           <Grid item xs={3}>
-            <Item>Post Title</Item>
+            <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Post Title</Item>
           </Grid>
           <Grid item xs={3}>
-            <Item>Post Date</Item>
+            <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Post Date</Item>
           </Grid>
           <Grid item xs={3}>
-            <Item>Published</Item>
+            <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Published</Item>
           </Grid>
           <Grid item xs={3}>
-            <Item>Delete</Item>
+            <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Delete</Item>
           </Grid>
           {articles.map((article) => {
             const labelId = `checkbox-list-label-${article.title}`;
@@ -92,12 +92,16 @@ export default function CheckboxList() {
             return (
               <>
                 <Grid item xs={3}>
-                  <Item>{article.title}</Item>
+                  <Item sx={{ boxShadow: 0 }}>{article.title}</Item>
                 </Grid>
                 <Grid item xs={3}>
-                  <Item>{niceDate}</Item>
+                  <Item sx={{ boxShadow: 0 }}>{niceDate} </Item>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid
+                  item
+                  xs={3}
+                  sx={{ display: "flex", justifyContent: "center" }}
+                >
                   <Switch
                     edge="end"
                     onChange={handleToggle(article)}
@@ -107,7 +111,11 @@ export default function CheckboxList() {
                     }}
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid
+                  item
+                  xs={3}
+                  sx={{ display: "flex", justifyContent: "center" }}
+                >
                   <IconButton edge="end" aria-label="delete-article">
                     <DeleteIcon />
                   </IconButton>
