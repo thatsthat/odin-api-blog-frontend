@@ -18,20 +18,24 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const defaultTheme = createTheme({});
 
 export default function CheckboxList() {
-  const [checked, setChecked] = React.useState([0]);
   const [articles, setArticles] = React.useState();
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
+  const handleToggle = (article) => async () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    const token = localStorage.getItem("currentToken");
+    const url = "http://localhost:3000/blog/article_toggle_published";
+    const resp = await fetch(url, {
+      method: "post",
+      // prettier-ignore
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token,
+      },
+      body: JSON.stringify({ article: article }),
+    });
+    const updatedArticle = await resp.json();
+    console.log(updatedArticle);
+    fetchArticles();
   };
 
   const fetchArticles = async () => {
@@ -105,7 +109,7 @@ export default function CheckboxList() {
                   <Switch
                     edge="end"
                     onChange={handleToggle(article)}
-                    checked={checked.indexOf(article) !== -1}
+                    checked={article.isPublished}
                     inputProps={{
                       "aria-labelledby": "switch-list-label-bluetooth",
                     }}
@@ -127,36 +131,4 @@ export default function CheckboxList() {
       </Box>
     );
   }
-}
-
-{
-  /* <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-  <ListItem>
-    <ListItemText primary={"Post Title"} />
-    <ListItemText primary={"Post Date"} />
-    <ListItemText primary={"Published"} />
-    <ListItemText primary={"Delete"} />
-  </ListItem>
-  {articles.map((article) => {
-    const labelId = `checkbox-list-label-${article.title}`;
-    const niceDate = new Date(article.date).toLocaleDateString("en-GB", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
-
-    return (
-      <ListItem key={article.title}>
-        <ListItemText primary={article.title} />
-        <ListItemText primary={niceDate} />
-
-        <ListItemIcon>
-         
-        </ListItemIcon>
-
-
-      </ListItem>
-    );
-  })}
-</List>; */
 }

@@ -45,7 +45,12 @@ export default function Compose() {
           "Content-Type": "application/json",
           "Authorization": "Bearer " + token,
         },
-        body: { userId: user._id },
+        body: JSON.stringify({
+          title: data.get("title"),
+          text: data.get("body"),
+          author: user,
+          isPublished: true,
+        }),
       });
       const response = await resp.json();
       console.log(response);
