@@ -38,6 +38,24 @@ export default function CheckboxList() {
     fetchArticles();
   };
 
+  const handleDelete = (articleId) => async () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    const token = localStorage.getItem("currentToken");
+    const url = "http://localhost:3000/blog/article_delete";
+    const resp = await fetch(url, {
+      method: "post",
+      // prettier-ignore
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token,
+      },
+      body: JSON.stringify({ articleID: articleId }),
+    });
+    const updatedArticle = await resp.json();
+    console.log(updatedArticle);
+    fetchArticles();
+  };
+
   const fetchArticles = async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
@@ -120,7 +138,11 @@ export default function CheckboxList() {
                   xs={3}
                   sx={{ display: "flex", justifyContent: "center" }}
                 >
-                  <IconButton edge="end" aria-label="delete-article">
+                  <IconButton
+                    edge="end"
+                    aria-label="delete-article"
+                    onClick={handleDelete(article._id)}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </Grid>
