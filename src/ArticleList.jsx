@@ -59,7 +59,7 @@ export default function CheckboxList() {
   const fetchArticles = async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    const url = "http://localhost:3000/blog/user_articles_list";
+    const url = "http://localhost:3000/blog/user_articles_list/" + user._id;
     const resp = await fetch(url, {
       method: "get",
       // prettier-ignore
@@ -106,8 +106,8 @@ export default function CheckboxList() {
               "en-GB",
               {
                 year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
+                month: "long",
+                day: "numeric",
               }
             );
 
