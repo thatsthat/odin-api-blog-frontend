@@ -20,10 +20,16 @@ const defaultTheme = createTheme({});
 export default function CheckboxList() {
   const [articles, setArticles] = React.useState();
 
+  if (typeof CF_PAGES !== "undefined") {
+    const apiURL = API_URL;
+  } else {
+    const apiURL = import.meta.env.VITE_API_URL;
+  }
+
   const handleToggle = (article) => async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    const url = "http://localhost:3000/blog/article_toggle_published";
+    var url = apiURL + "/blog/article_toggle_published";
     const resp = await fetch(url, {
       method: "post",
       // prettier-ignore
@@ -41,7 +47,7 @@ export default function CheckboxList() {
   const handleDelete = (articleId) => async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    const url = "http://localhost:3000/blog/article_delete";
+    var url = apiURL + "/blog/article_delete";
     const resp = await fetch(url, {
       method: "post",
       // prettier-ignore
@@ -59,7 +65,7 @@ export default function CheckboxList() {
   const fetchArticles = async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    const url = "http://localhost:3000/blog/user_articles_list/" + user._id;
+    var url = apiURL + "/blog/user_articles_list/" + user._id;
     const resp = await fetch(url, {
       method: "get",
       // prettier-ignore

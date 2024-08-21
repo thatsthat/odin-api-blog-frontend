@@ -23,6 +23,12 @@ export default function Compose() {
   const [isTitleInvalid, setIsTitleInvalid] = React.useState(false);
   const [isBodyInvalid, setIsBodyInvalid] = React.useState(false);
 
+  if (typeof CF_PAGES !== "undefined") {
+    const apiURL = API_URL;
+  } else {
+    const apiURL = import.meta.env.VITE_API_URL;
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -36,7 +42,7 @@ export default function Compose() {
         isPublished: true,
       };
       console.log(formData.author);
-      const url = "http://localhost:3000/blog/article";
+      var url = apiURL + "/blog/article";
       //console.log(JSON.stringify(formData));
       const resp = await fetch(url, {
         method: "post",

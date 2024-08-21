@@ -22,10 +22,10 @@ export default function Blog() {
   const [articles, setArticles] = React.useState();
 
   const fetchArticles = async () => {
-    if (CF_PAGES !== undefined) {
-      const url = API_URL + "/blog/article_list/";
+    if (typeof CF_PAGES !== "undefined") {
+      var url = API_URL + "/blog/article_list/";
     } else {
-      const url = import.meta.env.VITE_API_URL + "/blog/article_list/";
+      var url = import.meta.env.VITE_API_URL + "/blog/article_list/";
     }
     const resp = await fetch(url, {
       method: "get",
@@ -40,10 +40,6 @@ export default function Blog() {
   }, []);
 
   if (!(typeof articles === "undefined")) {
-    //console.log(posts[1]);
-    console.log(articles);
-    //console.log(typeof posts);
-
     return (
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />

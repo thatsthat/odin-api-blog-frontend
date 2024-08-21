@@ -37,6 +37,11 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  if (typeof CF_PAGES !== "undefined") {
+    const apiURL = API_URL;
+  } else {
+    const apiURL = import.meta.env.VITE_API_URL;
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -45,7 +50,7 @@ export default function SignIn() {
         email: data.get("email"),
         password: data.get("password"),
       };
-      const url = "http://localhost:3000/users/login";
+      var url = apiURL + "/users/login";
       const resp = await fetch(url, {
         method: "post",
         headers: {
