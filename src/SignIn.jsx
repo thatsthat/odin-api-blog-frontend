@@ -37,11 +37,6 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  if (typeof process.env.CF_PAGES !== "undefined") {
-    const apiURL = process.env.API_URL;
-  } else {
-    const apiURL = import.meta.env.VITE_API_URL;
-  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -50,7 +45,7 @@ export default function SignIn() {
         email: data.get("email"),
         password: data.get("password"),
       };
-      var url = apiURL + "/users/login";
+      var url = import.meta.env.VITE_API_URL + "/users/login";
       const resp = await fetch(url, {
         method: "post",
         headers: {

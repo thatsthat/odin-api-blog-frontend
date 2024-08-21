@@ -41,12 +41,6 @@ export default function SignUp() {
   const [isName2Invalid, setIsName2Invalid] = React.useState(false);
   const [isPwInvalid, setIsPwInvalid] = React.useState(false);
 
-  if (typeof process.env.CF_PAGES !== "undefined") {
-    const apiURL = process.env.API_URL;
-  } else {
-    const apiURL = import.meta.env.VITE_API_URL;
-  }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -57,7 +51,7 @@ export default function SignUp() {
         email: data.get("email"),
         password: data.get("password"),
       };
-      var url = apiURL + "/users/signup";
+      var url = import.meta.env.VITE_API_URL + "/users/signup";
       const resp = await fetch(url, {
         method: "post",
         headers: {

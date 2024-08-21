@@ -20,16 +20,10 @@ const defaultTheme = createTheme({});
 export default function CheckboxList() {
   const [articles, setArticles] = React.useState();
 
-  if (typeof process.env.CF_PAGES !== "undefined") {
-    const apiURL = process.env.API_URL;
-  } else {
-    const apiURL = import.meta.env.VITE_API_URL;
-  }
-
   const handleToggle = (article) => async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    var url = apiURL + "/blog/article_toggle_published";
+    var url = import.meta.env.VITE_API_URL + "/blog/article_toggle_published";
     const resp = await fetch(url, {
       method: "post",
       // prettier-ignore
