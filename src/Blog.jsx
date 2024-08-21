@@ -22,10 +22,11 @@ export default function Blog() {
   const [articles, setArticles] = React.useState();
 
   const fetchArticles = async () => {
-    if (typeof CF_PAGES !== "undefined") {
-      var url = API_URL + "/blog/article_list/";
+    if (typeof context.env.CF_PAGES !== "undefined") {
+      var url = context.env.API_URL + "/blog/article_list/";
     } else {
-      var url = import.meta.env.VITE_API_URL + "/blog/article_list/";
+      var url =
+        import.meta.env.VITE_context.env.API_URL + "/blog/article_list/";
     }
     console.log(url);
     const resp = await fetch(url, {
