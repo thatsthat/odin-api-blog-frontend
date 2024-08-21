@@ -27,7 +27,7 @@ export default function Blog() {
     } else {
       var url = import.meta.env.VITE_API_URL + "/blog/article_list/";
     }
-    console.log(url);
+    console.log(import.meta.env.VITE_API_URL);
     const resp = await fetch(url, {
       method: "get",
     });
