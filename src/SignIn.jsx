@@ -37,10 +37,10 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  if (typeof context.env.CF_PAGES !== "undefined") {
-    const apiURL = context.env.API_URL;
+  if (typeof process.env.CF_PAGES !== "undefined") {
+    const apiURL = process.env.API_URL;
   } else {
-    const apiURL = import.meta.env.VITE_context.env.API_URL;
+    const apiURL = import.meta.env.VITE_process.env.API_URL;
   }
   const handleSubmit = async (event) => {
     event.preventDefault();
