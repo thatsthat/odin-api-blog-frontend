@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import XIcon from "@mui/icons-material/X";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./Header";
@@ -25,7 +22,11 @@ export default function Blog() {
   const [articles, setArticles] = React.useState();
 
   const fetchArticles = async () => {
-    const url = "http://localhost:3000/blog/article_list/";
+    if (CF_PAGES !== undefined) {
+      const url = API_URL + "/blog/article_list/";
+    } else {
+      const url = import.meta.env.VITE_API_URL + "/blog/article_list/";
+    }
     const resp = await fetch(url, {
       method: "get",
     });
@@ -42,6 +43,7 @@ export default function Blog() {
     //console.log(posts[1]);
     console.log(articles);
     //console.log(typeof posts);
+
     return (
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
@@ -66,10 +68,6 @@ export default function Blog() {
             </Routes>
           </BrowserRouter>
         </Container>
-        <Footer
-          title="Footer"
-          description="Something here to give the footer a purpose!"
-        />
       </ThemeProvider>
     );
   }

@@ -59,7 +59,7 @@ export default function SignIn() {
         "currentUser",
         JSON.stringify(jwtDecode(JSON.stringify(token)).user)
       );
-      console.log(jwtDecode(JSON.stringify(token)).user);
+      window.location.href = "/admin";
     } else {
       event.currentTarget.reportValidity();
       return false;
