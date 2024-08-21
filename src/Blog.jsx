@@ -25,8 +25,7 @@ export default function Blog() {
     if (typeof process.env.CF_PAGES !== "undefined") {
       var url = process.env.API_URL + "/blog/article_list/";
     } else {
-      var url =
-        import.meta.env.VITE_process.env.API_URL + "/blog/article_list/";
+      var url = import.meta.env.VITE_API_URL + "/blog/article_list/";
     }
     console.log(url);
     const resp = await fetch(url, {

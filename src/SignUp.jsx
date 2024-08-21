@@ -44,7 +44,7 @@ export default function SignUp() {
   if (typeof process.env.CF_PAGES !== "undefined") {
     const apiURL = process.env.API_URL;
   } else {
-    const apiURL = import.meta.env.VITE_process.env.API_URL;
+    const apiURL = import.meta.env.VITE_API_URL;
   }
 
   const handleSubmit = async (event) => {
