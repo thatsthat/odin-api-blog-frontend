@@ -59,7 +59,8 @@ export default function CheckboxList() {
   const fetchArticles = async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    var url = apiURL + "/blog/user_articles_list/" + user._id;
+    var url =
+      import.meta.env.VITE_API_URL + "/blog/user_articles_list/" + user._id;
     const resp = await fetch(url, {
       method: "get",
       // prettier-ignore
