@@ -41,7 +41,7 @@ export default function CheckboxList() {
   const handleDelete = (articleId) => async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    var url = apiURL + "/blog/article_delete";
+    var url = import.meta.env.VITE_API_URL + "/blog/article_delete";
     const resp = await fetch(url, {
       method: "post",
       // prettier-ignore
