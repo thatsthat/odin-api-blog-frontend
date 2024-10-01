@@ -85,23 +85,24 @@ export default function CheckboxList() {
     color: theme.palette.text.primary,
   }));
 
-  if (!(typeof articles === "undefined")) {
-    return (
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2} sx={{ alignItems: "center" }}>
-          <Grid item xs={3}>
-            <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Post Title</Item>
-          </Grid>
-          <Grid item xs={3}>
-            <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Post Date</Item>
-          </Grid>
-          <Grid item xs={3}>
-            <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Published</Item>
-          </Grid>
-          <Grid item xs={3}>
-            <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Delete</Item>
-          </Grid>
-          {articles.map((article) => {
+  //  if (!(typeof articles === "undefined")) {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2} sx={{ alignItems: "center" }}>
+        <Grid item xs={3}>
+          <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Post Title</Item>
+        </Grid>
+        <Grid item xs={3}>
+          <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Post Date</Item>
+        </Grid>
+        <Grid item xs={3}>
+          <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Published</Item>
+        </Grid>
+        <Grid item xs={3}>
+          <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Delete</Item>
+        </Grid>
+        {articles &&
+          articles.map((article) => {
             const labelId = `checkbox-list-label-${article.title}`;
             const niceDate = new Date(article.date).toLocaleDateString(
               "en-GB",
@@ -150,8 +151,8 @@ export default function CheckboxList() {
               </>
             );
           })}
-        </Grid>
-      </Box>
-    );
-  }
+      </Grid>
+    </Box>
+  );
 }
+//}
