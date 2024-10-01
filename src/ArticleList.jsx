@@ -85,7 +85,6 @@ export default function CheckboxList() {
     color: theme.palette.text.primary,
   }));
 
-  //  if (!(typeof articles === "undefined")) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} sx={{ alignItems: "center" }}>
@@ -101,7 +100,7 @@ export default function CheckboxList() {
         <Grid item xs={3}>
           <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Delete</Item>
         </Grid>
-        {articles &&
+        {articles && // Check that articles have been fetched from backend
           articles.map((article) => {
             const labelId = `checkbox-list-label-${article.title}`;
             const niceDate = new Date(article.date).toLocaleDateString(
@@ -155,4 +154,3 @@ export default function CheckboxList() {
     </Box>
   );
 }
-//}

@@ -35,32 +35,30 @@ export default function Blog() {
     fetchArticles();
   }, []);
 
-  if (!(typeof articles === "undefined")) {
-    return (
-      <ThemeProvider theme={defaultTheme}>
-        <CssBaseline />
-        <Container maxWidth="lg">
-          <BrowserRouter>
-            <Header title="Blog" />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <main>
-                    <Grid container spacing={0} sx={{ mt: 1 }}>
-                      <Main posts={articles} />
-                    </Grid>
-                  </main>
-                }
-              />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/compose" element={<Compose />} />
-              <Route path="/admin" element={<ArticleList />} />
-            </Routes>
-          </BrowserRouter>
-        </Container>
-      </ThemeProvider>
-    );
-  }
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <CssBaseline />
+      <Container maxWidth="lg">
+        <BrowserRouter>
+          <Header title="Blog" />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <main>
+                  <Grid container spacing={0} sx={{ mt: 1 }}>
+                    <Main posts={articles} />
+                  </Grid>
+                </main>
+              }
+            />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/compose" element={<Compose />} />
+            <Route path="/admin" element={<ArticleList />} />
+          </Routes>
+        </BrowserRouter>
+      </Container>
+    </ThemeProvider>
+  );
 }
