@@ -31,7 +31,6 @@ export default function CheckboxList() {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + token,
       },
-      body: JSON.stringify({ article: article }),
     });
     const updatedArticle = await resp.json();
     console.log(updatedArticle);
