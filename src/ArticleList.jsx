@@ -20,12 +20,12 @@ const defaultTheme = createTheme({});
 export default function CheckboxList() {
   const [articles, setArticles] = React.useState();
 
-  const handleToggle = (article) => async () => {
+  const handleToggle = (articleId) => async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    var url = import.meta.env.VITE_API_URL + "/blog/article_toggle_published";
+    var url = import.meta.env.VITE_API_URL + "/articles/" + articleId;
     const resp = await fetch(url, {
-      method: "post",
+      method: "patch",
       // prettier-ignore
       headers: {
         "Content-Type": "application/json",
@@ -41,15 +41,14 @@ export default function CheckboxList() {
   const handleDelete = (articleId) => async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    var url = import.meta.env.VITE_API_URL + "/blog/article_delete";
+    var url = import.meta.env.VITE_API_URL + "/articles/" + articleId;
     const resp = await fetch(url, {
-      method: "post",
+      method: "delete",
       // prettier-ignore
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + token,
       },
-      body: JSON.stringify({ articleID: articleId }),
     });
     const updatedArticle = await resp.json();
     console.log(updatedArticle);
@@ -59,8 +58,7 @@ export default function CheckboxList() {
   const fetchArticles = async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    var url =
-      import.meta.env.VITE_API_URL + "/blog/user_articles_list/" + user._id;
+    var url = import.meta.env.VITE_API_URL + "/articles/" + user._id;
     const resp = await fetch(url, {
       method: "get",
       // prettier-ignore
@@ -127,7 +125,7 @@ export default function CheckboxList() {
                 >
                   <Switch
                     edge="end"
-                    onChange={handleToggle(article)}
+                    onChange={handleToggle(article._id)}
                     checked={article.isPublished}
                     inputProps={{
                       "aria-labelledby": "switch-list-label-bluetooth",

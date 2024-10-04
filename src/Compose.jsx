@@ -36,7 +36,7 @@ export default function Compose() {
         isPublished: true,
       };
       console.log(formData.author);
-      var url = import.meta.env.VITE_API_URL + "/blog/article";
+      var url = import.meta.env.VITE_API_URL + "/articles";
       //console.log(JSON.stringify(formData));
       const resp = await fetch(url, {
         method: "post",

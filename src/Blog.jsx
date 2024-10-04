@@ -22,7 +22,7 @@ export default function Blog() {
   const [articles, setArticles] = React.useState();
 
   const fetchArticles = async () => {
-    const url = import.meta.env.VITE_API_URL + "/blog/article_list/";
+    const url = import.meta.env.VITE_API_URL + "/articles/";
     const resp = await fetch(url, {
       method: "get",
     });
