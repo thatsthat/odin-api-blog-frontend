@@ -21,9 +21,12 @@ function Main(props) {
     >
       {posts && // Check that posts have been fetched from backend
         posts.map((post) => (
-          <Markdown className="markdown" key={post.substring(0, 40)}>
-            {post}
-          </Markdown>
+          <>
+            <Markdown className="markdown" key={post.substring(0, 40)}>
+              {post}
+            </Markdown>
+            <hr />
+          </>
         ))}
     </Grid>
   );

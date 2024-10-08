@@ -16,7 +16,17 @@ import ArticleList from "./ArticleList";
 import SignUp from "./SignUp";
 
 // TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "##551a8b",
+    },
+  },
+});
+
+defaultTheme.palette.background.default = "#1f1f1f";
+defaultTheme.palette.text.primary = "#b2aea8";
 
 export default function Blog() {
   const [articles, setArticles] = React.useState();
