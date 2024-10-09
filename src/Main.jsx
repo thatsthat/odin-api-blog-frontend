@@ -5,9 +5,8 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Markdown from "./Markdown";
 
-function Main(props) {
-  const { posts, title } = props;
-
+function Main({ posts, title }) {
+  // Crear componente que muestre todos los comentarios del articulo
   return (
     <Grid
       item
@@ -20,9 +19,9 @@ function Main(props) {
       }}
     >
       {posts && // Check that posts have been fetched from backend
-        posts.map((post) => (
+        posts.map((post, index) => (
           <>
-            <Markdown className="markdown" key={post.substring(0, 40)}>
+            <Markdown className="markdown" key={index}>
               {post}
             </Markdown>
             <hr />

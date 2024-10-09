@@ -32,6 +32,8 @@ export default function Blog() {
   const [articles, setArticles] = React.useState();
 
   const fetchArticles = async () => {
+    // Bajar tambien los comentarios asociados a cada articulo para pasarlo al componente
+    // Puedo crear una funcion extra para solo tener una vez estas linias extra en la llamada a la api
     const url = import.meta.env.VITE_API_URL + "/articles/";
     const resp = await fetch(url, {
       method: "get",
