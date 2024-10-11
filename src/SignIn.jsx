@@ -45,7 +45,7 @@ export default function SignIn() {
         email: data.get("email"),
         password: data.get("password"),
       };
-      var url = import.meta.env.VITE_API_URL + "/users/login";
+      var url = import.meta.env.VITE_API_URL + "/public/login";
       const resp = await fetch(url, {
         method: "post",
         headers: {

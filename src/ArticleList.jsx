@@ -23,9 +23,9 @@ export default function CheckboxList() {
   const handleToggle = (articleId) => async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    var url = import.meta.env.VITE_API_URL + "/articles/" + articleId;
+    var url = import.meta.env.VITE_API_URL + "/private/" + articleId;
     const resp = await fetch(url, {
-      method: "patch",
+      method: "PATCH",
       // prettier-ignore
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export default function CheckboxList() {
   const handleDelete = (articleId) => async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    var url = import.meta.env.VITE_API_URL + "/articles/" + articleId;
+    var url = import.meta.env.VITE_API_URL + "/private/" + articleId;
     const resp = await fetch(url, {
       method: "delete",
       // prettier-ignore
@@ -57,7 +57,7 @@ export default function CheckboxList() {
   const fetchArticles = async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
-    var url = import.meta.env.VITE_API_URL + "/articles/" + user._id;
+    var url = import.meta.env.VITE_API_URL + "/private/";
     const resp = await fetch(url, {
       method: "get",
       // prettier-ignore
