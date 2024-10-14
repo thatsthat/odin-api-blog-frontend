@@ -39,7 +39,7 @@ export default function Blog() {
       method: "get",
     });
     const articleList = await resp.json();
-    const articleStrings = articleList.map((art) => art);
+    const articleStrings = articleList.map((art) => art.markDown);
     setArticles(articleStrings);
   };
 
