@@ -32,15 +32,17 @@ export default function Blog() {
   const [articles, setArticles] = React.useState();
 
   const fetchArticles = async () => {
-    // Bajar tambien los comentarios asociados a cada articulo para pasarlo al componente
-    // Puedo crear una funcion extra para solo tener una vez estas linias extra en la llamada a la api
+    // Bajar también los comentarios asociados a cada articulo para pasarlo al componente
+    // Puedo crear una función extra para solo tener una vez estas lineas extra en la llamada a la api
     const url = import.meta.env.VITE_API_URL + "/";
     const resp = await fetch(url, {
       method: "get",
     });
     const articleList = await resp.json();
-    const articleStrings = articleList.map((art) => art.markDown);
-    setArticles(articleStrings);
+    const articlesData = articleList.map((art) => {
+      return { body: art.markDownText, comments: art.comments };
+    });
+    setArticles(articlesData);
   };
 
   useEffect(() => {

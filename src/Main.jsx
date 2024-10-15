@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Markdown from "./Markdown";
+import Comments from "./Comments";
 
 function Main({ posts, title }) {
   // Crear componente que muestre todos los comentarios del articulo
@@ -22,9 +23,10 @@ function Main({ posts, title }) {
         posts.map((post, index) => (
           <>
             <Markdown className="markdown" key={index}>
-              {post}
+              {post.body}
             </Markdown>
             <hr />
+            <Comments postComments={post.comments}></Comments>
           </>
         ))}
     </Grid>
