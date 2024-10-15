@@ -27,6 +27,7 @@ function Main({ posts, title }) {
               borderRadius: 1,
               bgcolor: "#2a2b2b",
               p: 5,
+              pt: 0,
               m: 2,
             }}
           >
