@@ -8,18 +8,24 @@ import Markdown from "./Markdown";
 
 export default function Comments(props) {
   return (
-    <Grid
-      item
-      xs={12}
-      md={8}
+    <Box
       sx={{
-        "& .markdown": {
-          py: 3,
-        },
+        borderRadius: 1,
+        bgcolor: "#454647",
+        p: 5,
       }}
     >
-      {props.postComments.length > 0 && // Check that posts have been fetched from backend
-        props.postComments.map((comment, index) => (
+      <Grid
+        item
+        xs={12}
+        md={8}
+        sx={{
+          "& .markdown": {
+            py: 3,
+          },
+        }}
+      >
+        {props.postComments.map((comment, index) => (
           <>
             <Markdown className="markdown" key={index}>
               {comment.text}
@@ -27,6 +33,7 @@ export default function Comments(props) {
             <hr />
           </>
         ))}
-    </Grid>
+      </Grid>
+    </Box>
   );
 }
