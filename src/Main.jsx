@@ -24,7 +24,7 @@ function Main({ posts, title }) {
         posts.map((post, index) => (
           <Box
             sx={{
-              borderRadius: 1,
+              borderRadius: 4,
               bgcolor: "#2a2b2b",
               p: 5,
               pt: 0,

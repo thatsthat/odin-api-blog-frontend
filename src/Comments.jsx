@@ -10,7 +10,7 @@ export default function Comments(props) {
   return (
     <Box
       sx={{
-        borderRadius: 1,
+        borderRadius: 4,
         bgcolor: "#454647",
         p: 5,
       }}
