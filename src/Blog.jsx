@@ -60,7 +60,11 @@ export default function Blog() {
               path="/"
               element={
                 <main>
-                  <Grid container spacing={0} sx={{ mt: 1 }}>
+                  <Grid
+                    container
+                    spacing={0}
+                    sx={{ mt: 1, justifyContent: "center" }}
+                  >
                     <Main posts={articles} />
                   </Grid>
                 </main>

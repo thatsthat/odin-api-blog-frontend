@@ -36,7 +36,7 @@ export default function Compose() {
         isPublished: true,
       };
       console.log(formData.author);
-      var url = import.meta.env.VITE_API_URL + "/articles";
+      var url = import.meta.env.VITE_API_URL + "/private";
       //console.log(JSON.stringify(formData));
       const resp = await fetch(url, {
         method: "post",
@@ -108,9 +108,7 @@ export default function Compose() {
                   label="Title"
                   name="title"
                   autoComplete="title"
-                  inputProps={{
-                    type: "text",
-                  }}
+                  type="text"
                   onChange={handleTitleChange}
                 />
               </Grid>
