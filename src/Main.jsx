@@ -34,9 +34,7 @@ function Main({ posts, title }) {
             <Markdown className="markdown" key={index}>
               {post.body}
             </Markdown>
-            {post.comments.length > 0 && (
-              <Comments postComments={post.comments}></Comments>
-            )}
+            {post.comments.length > 0 && <Comments post={post}></Comments>}
           </Box>
         ))}
     </Grid>

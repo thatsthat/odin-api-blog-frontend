@@ -22,10 +22,10 @@ export default function Comments(props) {
         author: user,
       };
       console.log(formData.author);
-      var url = import.meta.env.VITE_API_URL + "/private/comments";
-      //console.log(JSON.stringify(formData));
+      var url =
+        import.meta.env.VITE_API_URL + "/private/comments/" + props.post.id;
       const resp = await fetch(url, {
-        method: "post",
+        method: "PATCH",
         // prettier-ignore
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +33,6 @@ export default function Comments(props) {
         },
         body: JSON.stringify({
           text: data.get("body"),
-          author: user,
         }),
       });
       const response = await resp.json();
@@ -70,7 +69,7 @@ export default function Comments(props) {
           },
         }}
       >
-        {props.postComments.map((comment, index) => (
+        {props.post.comments.map((comment, index) => (
           <>
             <Markdown className="markdown" key={index}>
               {comment.text}
@@ -88,8 +87,8 @@ export default function Comments(props) {
               helperText={
                 isBodyInvalid ? "Please write some text for your comment" : ""
               }
-              fullWidth
               name="body"
+              multiline
               label="Enter comment"
               type="text"
               id="body"
@@ -100,7 +99,7 @@ export default function Comments(props) {
         </Grid>
         <Button
           type="submit"
-          fullWidth
+          color="secondary"
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
