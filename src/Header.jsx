@@ -7,6 +7,29 @@ import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 
+function HeaderButton({ loggedIn }) {
+  if (loggedIn) {
+    return (
+      <Button
+        variant="outlined"
+        size="small"
+        onClick={() => {
+          localStorage.removeItem("currentUser");
+          localStorage.removeItem("currentToken");
+          location.reload();
+        }}
+      >
+        Logout
+      </Button>
+    );
+  }
+  return (
+    <Button variant="outlined" size="small" href="/signin">
+      Signin
+    </Button>
+  );
+}
+
 function Header(props) {
   const { sections, title } = props;
 
@@ -23,9 +46,9 @@ function Header(props) {
         >
           {title}
         </Typography>
-        <Button variant="outlined" size="small" href="/signin">
-          Signin
-        </Button>
+        <HeaderButton
+          loggedIn={localStorage.getItem("currentToken")}
+        ></HeaderButton>
       </Toolbar>
     </React.Fragment>
   );

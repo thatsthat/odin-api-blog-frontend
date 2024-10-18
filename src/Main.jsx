@@ -8,7 +8,7 @@ import Comments from "./Comments";
 import Box from "@mui/material/Box";
 
 function Main({ posts, title }) {
-  // Crear componente que muestre todos los comentarios del articulo
+  if (!posts) return null; // Check that posts have been fetched from backend
   return (
     <Grid
       item
@@ -20,23 +20,22 @@ function Main({ posts, title }) {
         },
       }}
     >
-      {posts && // Check that posts have been fetched from backend
-        posts.map((post, index) => (
-          <Box
-            sx={{
-              borderRadius: 4,
-              bgcolor: "#2a2b2b",
-              p: 5,
-              pt: 0,
-              m: 2,
-            }}
-          >
-            <Markdown className="markdown" key={index}>
-              {post.body}
-            </Markdown>
-            {post.comments.length > 0 && <Comments post={post}></Comments>}
-          </Box>
-        ))}
+      {posts.map((post, index) => (
+        <Box
+          sx={{
+            borderRadius: 4,
+            bgcolor: "#2a2b2b",
+            p: 5,
+            pt: 0,
+            m: 2,
+          }}
+        >
+          <Markdown className="markdown" key={index}>
+            {post.body}
+          </Markdown>
+          {post.comments.length > 0 && <Comments post={post}></Comments>}
+        </Box>
+      ))}
     </Grid>
   );
 }

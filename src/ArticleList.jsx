@@ -12,6 +12,7 @@ import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import { Navigate } from "react-router-dom";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -19,6 +20,7 @@ const defaultTheme = createTheme({});
 
 export default function CheckboxList() {
   const [articles, setArticles] = React.useState();
+  const [status, setStatus] = React.useState();
 
   const handleToggle = (articleId) => async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -33,7 +35,6 @@ export default function CheckboxList() {
       },
     });
     const updatedArticle = await resp.json();
-    console.log(updatedArticle);
     fetchArticles();
   };
 
@@ -50,7 +51,6 @@ export default function CheckboxList() {
       },
     });
     const updatedArticle = await resp.json();
-    console.log(updatedArticle);
     fetchArticles();
   };
 
@@ -66,6 +66,8 @@ export default function CheckboxList() {
         "Authorization": "Bearer " + token,
       },
     });
+    console.log(resp.status);
+    setStatus(resp.status);
     const articleList = await resp.json();
     setArticles(articleList);
   };
@@ -82,6 +84,10 @@ export default function CheckboxList() {
     color: theme.palette.text.primary,
   }));
 
+  if (status === 403) return <Navigate to="/signin" />;
+
+  if (!articles) return null; // Check that articles have been fetched from backend
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} sx={{ alignItems: "center" }}>
@@ -97,56 +103,52 @@ export default function CheckboxList() {
         <Grid item xs={3}>
           <Item sx={{ fontWeight: "bold", boxShadow: 0 }}>Delete</Item>
         </Grid>
-        {articles && // Check that articles have been fetched from backend
-          articles.map((article) => {
-            const labelId = `checkbox-list-label-${article.title}`;
-            const niceDate = new Date(article.date).toLocaleDateString(
-              "en-GB",
-              {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              }
-            );
+        {articles.map((article) => {
+          const labelId = `checkbox-list-label-${article.title}`;
+          const niceDate = new Date(article.date).toLocaleDateString("en-GB", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
 
-            return (
-              <>
-                <Grid item xs={3}>
-                  <Item sx={{ boxShadow: 0 }}>{article.title}</Item>
-                </Grid>
-                <Grid item xs={3}>
-                  <Item sx={{ boxShadow: 0 }}>{niceDate} </Item>
-                </Grid>
-                <Grid
-                  item
-                  xs={3}
-                  sx={{ display: "flex", justifyContent: "center" }}
+          return (
+            <>
+              <Grid item xs={3}>
+                <Item sx={{ boxShadow: 0 }}>{article.title}</Item>
+              </Grid>
+              <Grid item xs={3}>
+                <Item sx={{ boxShadow: 0 }}>{niceDate} </Item>
+              </Grid>
+              <Grid
+                item
+                xs={3}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
+                <Switch
+                  edge="end"
+                  onChange={handleToggle(article._id)}
+                  checked={article.isPublished}
+                  inputProps={{
+                    "aria-labelledby": "switch-list-label-bluetooth",
+                  }}
+                />
+              </Grid>
+              <Grid
+                item
+                xs={3}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
+                <IconButton
+                  edge="end"
+                  aria-label="delete-article"
+                  onClick={handleDelete(article._id)}
                 >
-                  <Switch
-                    edge="end"
-                    onChange={handleToggle(article._id)}
-                    checked={article.isPublished}
-                    inputProps={{
-                      "aria-labelledby": "switch-list-label-bluetooth",
-                    }}
-                  />
-                </Grid>
-                <Grid
-                  item
-                  xs={3}
-                  sx={{ display: "flex", justifyContent: "center" }}
-                >
-                  <IconButton
-                    edge="end"
-                    aria-label="delete-article"
-                    onClick={handleDelete(article._id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Grid>
-              </>
-            );
-          })}
+                  <DeleteIcon />
+                </IconButton>
+              </Grid>
+            </>
+          );
+        })}
       </Grid>
     </Box>
   );
