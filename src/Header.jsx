@@ -16,6 +16,7 @@ function HeaderButton({ loggedIn }) {
         onClick={() => {
           localStorage.removeItem("currentUser");
           localStorage.removeItem("currentToken");
+          localStorage.removeItem("currentTokenExpires");
           location.reload();
         }}
       >
@@ -33,7 +34,7 @@ function HeaderButton({ loggedIn }) {
 function Header(props) {
   const { sections, title } = props;
   const expireDate = localStorage.getItem("currentTokenExpires");
-  const tokenNotExpired = Date.now() < Date(expireDate * 1000);
+  const tokenNotExpired = Date.now() < expireDate * 1000;
 
   return (
     <React.Fragment>
@@ -48,7 +49,7 @@ function Header(props) {
         >
           {title}
         </Typography>
-        <HeaderButton loggedIn={expireDate && tokenNotExpired}></HeaderButton>
+        <HeaderButton loggedIn={tokenNotExpired}></HeaderButton>
       </Toolbar>
     </React.Fragment>
   );
