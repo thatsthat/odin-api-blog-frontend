@@ -54,10 +54,10 @@ export default function SignIn() {
         body: JSON.stringify(formData),
       });
       const tokenPayload = await resp.json();
-      const token = JSON.stringify(jwtDecode(JSON.stringify(tokenPayload)));
+      const token = jwtDecode(JSON.stringify(tokenPayload));
       localStorage.setItem("currentToken", token.token);
-      localStorage.setItem("currentTokenExpires", token.exp);
-      localStorage.setItem("currentUser", token.user);
+      localStorage.setItem("currentTokenExpires", JSON.stringify(token.exp));
+      localStorage.setItem("currentUser", JSON.stringify(token.user));
       window.location.href = "/admin";
     } else {
       event.currentTarget.reportValidity();
