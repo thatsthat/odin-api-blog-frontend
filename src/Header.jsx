@@ -32,7 +32,7 @@ function HeaderButton({ loggedIn }) {
 
 function Header(props) {
   const { sections, title } = props;
-  tokenHasExpired =
+  const tokenHasExpired =
     Date.now() > Date(localStorage.getItem("currentTokenExpires") * 1000);
 
   return (
