@@ -66,7 +66,6 @@ export default function CheckboxList() {
         "Authorization": "Bearer " + token,
       },
     });
-    console.log(resp.status);
     setStatus(resp.status);
     const articleList = await resp.json();
     setArticles(articleList);

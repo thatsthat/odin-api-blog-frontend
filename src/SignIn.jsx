@@ -53,12 +53,11 @@ export default function SignIn() {
         },
         body: JSON.stringify(formData),
       });
-      const token = await resp.json();
+      const tokenPayload = await resp.json();
+      const token = JSON.stringify(jwtDecode(JSON.stringify(tokenPayload)));
       localStorage.setItem("currentToken", token.token);
-      localStorage.setItem(
-        "currentUser",
-        JSON.stringify(jwtDecode(JSON.stringify(token)).user)
-      );
+      localStorage.setItem("currentTokenExpires", token.exp);
+      localStorage.setItem("currentUser", token.user);
       window.location.href = "/admin";
     } else {
       event.currentTarget.reportValidity();
