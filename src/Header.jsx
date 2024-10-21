@@ -33,7 +33,7 @@ function HeaderButton({ loggedIn }) {
 function Header(props) {
   const { sections, title } = props;
   const expireDate = localStorage.getItem("currentTokenExpires");
-  const tokenHasExpired = Date.now() > Date(expireDate * 1000);
+  const tokenNotExpired = Date.now() < Date(expireDate * 1000);
 
   return (
     <React.Fragment>
@@ -48,7 +48,7 @@ function Header(props) {
         >
           {title}
         </Typography>
-        <HeaderButton loggedIn={expireDate && tokenHasExpired}></HeaderButton>
+        <HeaderButton loggedIn={expireDate && tokenNotExpired}></HeaderButton>
       </Toolbar>
     </React.Fragment>
   );
