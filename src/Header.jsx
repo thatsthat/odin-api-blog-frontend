@@ -10,18 +10,26 @@ import Link from "@mui/material/Link";
 function HeaderButton({ loggedIn }) {
   if (loggedIn) {
     return (
-      <Button
-        variant="outlined"
-        size="small"
-        onClick={() => {
-          localStorage.removeItem("currentUser");
-          localStorage.removeItem("currentToken");
-          localStorage.removeItem("currentTokenExpires");
-          location.reload();
-        }}
-      >
-        Logout
-      </Button>
+      <>
+        <Button variant="outlined" size="small" href="/admin" sx={{ mr: 1 }}>
+          Admin
+        </Button>
+        <Button variant="outlined" size="small" href="/compose" sx={{ mr: 1 }}>
+          Write
+        </Button>
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={() => {
+            localStorage.removeItem("currentUser");
+            localStorage.removeItem("currentToken");
+            localStorage.removeItem("currentTokenExpires");
+            location.reload();
+          }}
+        >
+          Logout
+        </Button>
+      </>
     );
   }
   return (
@@ -37,21 +45,25 @@ function Header(props) {
   const tokenNotExpired = Date.now() < expireDate * 1000;
 
   return (
-    <React.Fragment>
+    <>
       <Toolbar sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          align="center"
-          noWrap
-          sx={{ flex: 1 }}
+        <Link
+          href="/"
+          sx={{ flex: 1, textDecoration: "none", boxShadow: "none" }}
         >
-          {title}
-        </Typography>
+          <Typography
+            component="h2"
+            variant="h5"
+            color="#b2aea8"
+            align="center"
+            noWrap
+          >
+            {title}
+          </Typography>
+        </Link>
         <HeaderButton loggedIn={tokenNotExpired}></HeaderButton>
       </Toolbar>
-    </React.Fragment>
+    </>
   );
 }
 
