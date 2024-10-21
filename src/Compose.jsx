@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Navigate } from "react-router-dom";
 
 const defaultTheme = createTheme({
   palette: {
@@ -75,6 +76,9 @@ export default function Compose() {
       setIsBodyInvalid(true);
     }
   };
+
+  if (Date.now() > localStorage.getItem("currentTokenExpires") * 1000)
+    return <Navigate to="/" />;
 
   return (
     <ThemeProvider theme={defaultTheme}>

@@ -83,7 +83,8 @@ export default function CheckboxList() {
     color: theme.palette.text.primary,
   }));
 
-  if (status === 403) return <Navigate to="/signin" />;
+  if (Date.now() > localStorage.getItem("currentTokenExpires") * 1000)
+    return <Navigate to="/" />;
 
   if (!articles) return null; // Check that articles have been fetched from backend
 
