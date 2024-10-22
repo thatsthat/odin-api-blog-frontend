@@ -49,61 +49,69 @@ export default function Comments({ post, reload }) {
     }
   };
 
-  return (
-    <Box
-      sx={{
-        borderRadius: 4,
-        bgcolor: "#454647",
-        p: 5,
-      }}
-    >
-      <Grid
-        item
-        xs={12}
-        md={8}
+  const loggedIn =
+    Date.now() > localStorage.getItem("currentTokenExpires") * 1000;
+
+  if (!loggedIn && post.comments.length == 0) return null;
+
+  if (loggedIn && post.comments.length == 0)
+    return ()
+
+    return (
+      <Box
         sx={{
-          "& .markdown": {
-            py: 3,
-          },
+          borderRadius: 4,
+          bgcolor: "#454647",
+          p: 5,
         }}
       >
-        {post.comments.map((comment, index) => (
-          <>
-            <Markdown className="markdown" key={index}>
-              {comment.text}
-            </Markdown>
-            <hr />
-          </>
-        ))}
-      </Grid>
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              required
-              error={isBodyInvalid}
-              helperText={
-                isBodyInvalid ? "Please write some text for your comment" : ""
-              }
-              name="body"
-              multiline
-              label="Enter comment"
-              type="text"
-              id="body"
-              autoComplete="body"
-              onChange={handleBodyChange}
-            />
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          color="secondary"
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+        <Grid
+          item
+          xs={12}
+          md={8}
+          sx={{
+            "& .markdown": {
+              py: 3,
+            },
+          }}
         >
-          Save
-        </Button>
+          {post.comments.map((comment, index) => (
+            <>
+              <Markdown className="markdown" key={index}>
+                {comment.text}
+              </Markdown>
+              <hr />
+            </>
+          ))}
+        </Grid>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                required
+                error={isBodyInvalid}
+                helperText={
+                  isBodyInvalid ? "Please write some text for your comment" : ""
+                }
+                name="body"
+                multiline
+                label="Enter comment"
+                type="text"
+                id="body"
+                autoComplete="body"
+                onChange={handleBodyChange}
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            color="secondary"
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Save
+          </Button>
+        </Box>
       </Box>
-    </Box>
-  );
+    );
 }
