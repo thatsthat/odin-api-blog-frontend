@@ -7,7 +7,7 @@ import Markdown from "./Markdown";
 import Comments from "./Comments";
 import Box from "@mui/material/Box";
 
-function Main({ posts, title }) {
+function Main({ posts, reload, title }) {
   if (!posts) return null; // Check that posts have been fetched from backend
   return (
     <Grid
@@ -33,7 +33,9 @@ function Main({ posts, title }) {
           <Markdown className="markdown" key={index}>
             {post.body}
           </Markdown>
-          {post.comments.length > 0 && <Comments post={post}></Comments>}
+          {post.comments.length > 0 && (
+            <Comments post={post} reload={reload}></Comments>
+          )}
         </Box>
       ))}
     </Grid>

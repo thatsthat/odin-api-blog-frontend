@@ -8,7 +8,7 @@ import Markdown from "./Markdown";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-export default function Comments(props) {
+export default function Comments({ post, reload }) {
   const [isBodyInvalid, setIsBodyInvalid] = React.useState(false);
 
   const handleSubmit = async (event) => {
@@ -21,9 +21,7 @@ export default function Comments(props) {
         text: data.get("body"),
         author: user,
       };
-      console.log(formData.author);
-      var url =
-        import.meta.env.VITE_API_URL + "/private/comments/" + props.post.id;
+      var url = import.meta.env.VITE_API_URL + "/private/comments/" + post.id;
       const resp = await fetch(url, {
         method: "PATCH",
         // prettier-ignore
@@ -35,8 +33,8 @@ export default function Comments(props) {
           text: data.get("body"),
         }),
       });
-      const response = await resp.json();
-      console.log(response);
+      reload();
+      event.target.reset();
     } else {
       event.currentTarget.reportValidity();
       return false;
@@ -69,7 +67,7 @@ export default function Comments(props) {
           },
         }}
       >
-        {props.post.comments.map((comment, index) => (
+        {post.comments.map((comment, index) => (
           <>
             <Markdown className="markdown" key={index}>
               {comment.text}

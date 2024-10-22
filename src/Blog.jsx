@@ -30,6 +30,11 @@ defaultTheme.palette.text.primary = "#b2aea8";
 
 export default function Blog() {
   const [articles, setArticles] = React.useState();
+  const [trigger, setTrigger] = React.useState(0);
+
+  const reRender = () => {
+    setTrigger((a) => a + 1);
+  };
 
   const fetchArticles = async () => {
     // Bajar también los comentarios asociados a cada articulo para pasarlo al componente
@@ -49,7 +54,7 @@ export default function Blog() {
 
   useEffect(() => {
     fetchArticles();
-  }, []);
+  }, [trigger]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -67,7 +72,7 @@ export default function Blog() {
                     spacing={0}
                     sx={{ mt: 1, justifyContent: "center" }}
                   >
-                    <Main posts={articles} />
+                    <Main posts={articles} reload={reRender} />
                   </Grid>
                 </main>
               }

@@ -53,6 +53,7 @@ export default function Compose() {
           isPublished: true,
         }),
       });
+      event.target.reset();
       const response = await resp.json();
       console.log(response);
     } else {
