@@ -39,8 +39,7 @@ function HeaderButton({ loggedIn }) {
   );
 }
 
-function Header(props) {
-  const { sections, title } = props;
+function Header({ sections, title }) {
   const expireDate = localStorage.getItem("currentTokenExpires");
   const tokenNotExpired = Date.now() < expireDate * 1000;
 

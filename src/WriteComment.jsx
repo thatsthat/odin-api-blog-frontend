@@ -7,9 +7,8 @@ import Grid from "@mui/material/Grid";
 import Markdown from "./Markdown";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import WriteComment from "./WriteComment";
 
-export default function Comments({ post, reload }) {
+export default function WriteComment({ post, reload }) {
   const [isBodyInvalid, setIsBodyInvalid] = React.useState(false);
 
   const handleSubmit = async (event) => {
@@ -50,39 +49,34 @@ export default function Comments({ post, reload }) {
     }
   };
 
-  const loggedIn =
-    Date.now() < localStorage.getItem("currentTokenExpires") * 1000;
-
-  if (!loggedIn && !post.comments.length) return null;
-
   return (
-    <Box
-      sx={{
-        borderRadius: 4,
-        bgcolor: "#454647",
-        p: 5,
-      }}
-    >
-      <Grid
-        item
-        xs={12}
-        md={8}
-        sx={{
-          "& .markdown": {
-            py: 3,
-          },
-        }}
-      >
-        {post.comments.map((comment, index) => (
-          <>
-            <Markdown className="markdown" key={index}>
-              {comment.text}
-            </Markdown>
-            <hr />
-          </>
-        ))}
+    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            required
+            error={isBodyInvalid}
+            helperText={
+              isBodyInvalid ? "Please write some text for your comment" : ""
+            }
+            name="body"
+            multiline
+            label="Enter comment"
+            type="text"
+            id="body"
+            autoComplete="body"
+            onChange={handleBodyChange}
+          />
+        </Grid>
       </Grid>
-      {loggedIn && <WriteComment post={post} reload={reload} />}
+      <Button
+        type="submit"
+        color="secondary"
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+      >
+        Save
+      </Button>
     </Box>
   );
 }

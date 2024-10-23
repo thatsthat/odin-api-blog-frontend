@@ -54,8 +54,7 @@ export default function Compose() {
         }),
       });
       event.target.reset();
-      const response = await resp.json();
-      console.log(response);
+      window.location.href = "/"; // Utilizar react router
     } else {
       event.currentTarget.reportValidity();
       return false;

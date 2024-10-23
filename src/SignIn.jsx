@@ -61,7 +61,7 @@ export default function SignIn() {
         JSON.stringify(tokenData.exp)
       );
       localStorage.setItem("currentUser", JSON.stringify(tokenData.user));
-      window.location.href = "/admin";
+      window.location.href = "/";
     } else {
       event.currentTarget.reportValidity();
       return false;

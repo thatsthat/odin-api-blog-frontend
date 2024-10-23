@@ -33,9 +33,7 @@ function Main({ posts, reload, title }) {
           <Markdown className="markdown" key={index}>
             {post.body}
           </Markdown>
-          {post.comments.length > 0 && (
-            <Comments post={post} reload={reload}></Comments>
-          )}
+          <Comments post={post} reload={reload} />
         </Box>
       ))}
     </Grid>
