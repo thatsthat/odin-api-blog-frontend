@@ -6,43 +6,32 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
+import { userLoggedIn, userLogOut } from "./utils/userInfo";
 
 function HeaderButton({ loggedIn }) {
-  if (loggedIn) {
+  if (!loggedIn) {
     return (
-      <>
-        <Button variant="outlined" size="small" href="/admin" sx={{ mr: 1 }}>
-          Admin
-        </Button>
-        <Button variant="outlined" size="small" href="/compose" sx={{ mr: 1 }}>
-          Write
-        </Button>
-        <Button
-          variant="outlined"
-          size="small"
-          onClick={() => {
-            localStorage.removeItem("currentUser");
-            localStorage.removeItem("currentToken");
-            localStorage.removeItem("currentTokenExpires");
-            location.reload();
-          }}
-        >
-          Logout
-        </Button>
-      </>
+      <Button variant="outlined" size="small" href="/signin">
+        Signin
+      </Button>
     );
   }
   return (
-    <Button variant="outlined" size="small" href="/signin">
-      Signin
-    </Button>
+    <>
+      <Button variant="outlined" size="small" href="/admin" sx={{ mr: 1 }}>
+        Admin
+      </Button>
+      <Button variant="outlined" size="small" href="/compose" sx={{ mr: 1 }}>
+        Write
+      </Button>
+      <Button variant="outlined" size="small" onClick={userLogOut}>
+        Logout
+      </Button>
+    </>
   );
 }
 
 function Header({ sections, title }) {
-  const expireDate = localStorage.getItem("currentTokenExpires");
-  const tokenNotExpired = Date.now() < expireDate * 1000;
-
   return (
     <>
       <Toolbar sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -60,7 +49,7 @@ function Header({ sections, title }) {
             {title}
           </Typography>
         </Link>
-        <HeaderButton loggedIn={tokenNotExpired}></HeaderButton>
+        <HeaderButton loggedIn={userLoggedIn()}></HeaderButton>
       </Toolbar>
     </>
   );

@@ -13,6 +13,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { Navigate } from "react-router-dom";
+import { userLoggedIn, userLogOut } from "./utils/userInfo";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -23,7 +24,6 @@ export default function CheckboxList() {
   const [status, setStatus] = React.useState();
 
   const handleToggle = (articleId) => async () => {
-    const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
     var url = import.meta.env.VITE_API_URL + "/private/" + articleId;
     const resp = await fetch(url, {
@@ -39,7 +39,6 @@ export default function CheckboxList() {
   };
 
   const handleDelete = (articleId) => async () => {
-    const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
     var url = import.meta.env.VITE_API_URL + "/private/" + articleId;
     const resp = await fetch(url, {
@@ -55,7 +54,6 @@ export default function CheckboxList() {
   };
 
   const fetchArticles = async () => {
-    const user = JSON.parse(localStorage.getItem("currentUser"));
     const token = localStorage.getItem("currentToken");
     var url = import.meta.env.VITE_API_URL + "/private/";
     const resp = await fetch(url, {
@@ -83,8 +81,7 @@ export default function CheckboxList() {
     color: theme.palette.text.primary,
   }));
 
-  if (Date.now() > localStorage.getItem("currentTokenExpires") * 1000)
-    return <Navigate to="/" />;
+  if (!userLoggedIn()) return <Navigate to="/" />;
 
   if (!articles) return null; // Check that articles have been fetched from backend
 

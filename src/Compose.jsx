@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Navigate } from "react-router-dom";
+import { userLoggedIn, userLogOut } from "./utils/userInfo";
 
 const defaultTheme = createTheme({
   palette: {
@@ -77,8 +78,7 @@ export default function Compose() {
     }
   };
 
-  if (Date.now() > localStorage.getItem("currentTokenExpires") * 1000)
-    return <Navigate to="/" />;
+  if (!userLoggedIn()) return <Navigate to="/" />;
 
   return (
     <ThemeProvider theme={defaultTheme}>

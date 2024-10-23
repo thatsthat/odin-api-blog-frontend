@@ -8,6 +8,7 @@ import Markdown from "./Markdown";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import WriteComment from "./WriteComment";
+import { userLoggedIn, userLogOut } from "./utils/userInfo";
 
 export default function Comments({ post, reload }) {
   const [isBodyInvalid, setIsBodyInvalid] = React.useState(false);
@@ -50,10 +51,7 @@ export default function Comments({ post, reload }) {
     }
   };
 
-  const loggedIn =
-    Date.now() < localStorage.getItem("currentTokenExpires") * 1000;
-
-  if (!loggedIn && !post.comments.length) return null;
+  if (!userLoggedIn() && !post.comments.length) return null;
 
   return (
     <Box
@@ -82,7 +80,7 @@ export default function Comments({ post, reload }) {
           </>
         ))}
       </Grid>
-      {loggedIn && <WriteComment post={post} reload={reload} />}
+      {userLoggedIn() && <WriteComment post={post} reload={reload} />}
     </Box>
   );
 }
