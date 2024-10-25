@@ -62,7 +62,8 @@ export default function Comments({ post, reload }) {
       }}
     >
       <Grid
-        item
+        container
+        direction="column"
         xs={12}
         md={8}
         sx={{
@@ -72,12 +73,25 @@ export default function Comments({ post, reload }) {
         }}
       >
         {post.comments.map((comment, index) => (
-          <>
-            <Markdown className="markdown" key={index}>
-              {comment.text}
-            </Markdown>
-            <hr />
-          </>
+          <Grid
+            item
+            container
+            direction="column"
+            spacing={1}
+            sx={{ borderBottom: "1px solid grey", mb: 1, pb: 1 }}
+          >
+            <Grid
+              item
+              container
+              sx={{
+                justifyContent: "space-between",
+              }}
+            >
+              <Grid item>{comment.author.firstName}</Grid>
+              <Grid item>{new Date(comment.date).toLocaleDateString()}</Grid>
+            </Grid>
+            <Grid item>{comment.text}</Grid>
+          </Grid>
         ))}
       </Grid>
       {userLoggedIn() && <WriteComment post={post} reload={reload} />}
